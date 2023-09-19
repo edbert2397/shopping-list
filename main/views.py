@@ -5,7 +5,7 @@ from django.urls import reverse
 from .models import Product
 from django.http import HttpResponse
 from django.core import serializers
-
+#
 def show_main(request):
     products = Product.objects.all()
 
