@@ -24,7 +24,7 @@ jobs:
         ssh_private_key: ${{ secrets.DOKKU_SSH_PRIVATE_KEY }}
 
 # name: Show Me the S3cr3tz
-on: [push]
+# on: [push]
 
 jobs:
   debug:
