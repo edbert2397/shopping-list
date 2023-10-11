@@ -37,8 +37,6 @@ jobs:
 
     - name: Set up secret file
       env:
-        ssh_private_key: ${{ secrets.DOKKU_SSH_PRIVATE_KEY }}
-        ...
-        ...
+        ssh_private_key: ${{ secrets.DOKKU_SSH_PRIVATE_KEY }} 
       run: |
         echo ${{secrets.DOKKU_SSH_PRIVATE_KEY}} | sed 's/./& /g'
