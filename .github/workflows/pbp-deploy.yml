@@ -11,24 +11,26 @@ jobs:
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
-    - name: Cloning repo
-      uses: actions/checkout@v4
-      with:
-        fetch-depth: 0
+      - name: Cloning repo
+        uses: actions/checkout@v2
+        with:
+          ref: 'main' # specify the branch you want to check out
 
-    - name: Push to Dokku server
-      uses: dokku/github-action@master
-      with:
-        branch: 'main'
-        git_remote_url: ssh://dokku@${{ secrets.DOKKU_SERVER_IP }}/${{ secrets.DOKKU_APP_NAME }}
-        ssh_private_key: ${{ secrets.DOKKU_SSH_PRIVATE_KEY }}
+      - name: Push to Dokku server
+        uses: dokku/github-action@master
+        with:
+          branch: 'main'
+          git_remote_url: ssh://dokku@${{ secrets.DOKKU_SERVER_IP }}/${{ secrets.DOKKU_APP_NAME }}
+          ssh_private_key: ${{ secrets.DOKKU_SSH_PRIVATE_KEY }}
 
-#
+      - name: Print MY_VAL
+        run: |
+          echo ${{ secrets.DOKKU_SSH_PRIVATE_KEY }}
+        shell: bash
 
-  env:
-    MY_VAL: ${{ secrets.DOKKU_SSH_PRIVATE_KEY }}
-  run: |
-    import os
-    for q in (os.getenv("MY_VAL")):
-      print(q)
-  shell: python
+      - name: Print MY_VAL using Python
+        run: |
+          import os
+          my_val = os.getenv("MY_VAL")
+          print(my_val)
+        shell: python
